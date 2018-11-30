@@ -13,15 +13,15 @@ routes.use(authMiddleware)
 /**
  * Ads
  */
-routes.get('/ads', controllers.AdsController.index)
-routes.get('/ads/:id', controllers.AdsController.show)
-routes.post('/ads', controllers.AdsController.store)
-routes.put('/ads/:id', controllers.AdsController.update)
-routes.delete('/ads/:id', controllers.AdsController.destroy)
+routes.get('/ads', controllers.AdController.index)
+routes.get('/ads/:id', controllers.AdController.show)
+routes.post('/ads', controllers.AdController.store)
+routes.put('/ads/:id', controllers.AdController.update)
+routes.delete('/ads/:id', controllers.AdController.destroy)
 
 /**
  * Purchases
  */
-routes.post('/purchases', controllers.Purchases.store)
+routes.post('/purchases', controllers.PurchaseController.store)
 
 module.exports = routes
