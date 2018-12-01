@@ -25,10 +25,10 @@ const AdSchema = new mongoose.Schema({
   }
 })
 
-AdSchema.plugin(mongoosePaginate)
-
 AdSchema.methods = {}
 
 AdSchema.statics = {}
+
+AdSchema.plugin(mongoosePaginate)
 
 module.exports = mongoose.model('Ad', AdSchema)

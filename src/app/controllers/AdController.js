@@ -24,6 +24,8 @@ class AdController {
       sort: '-createdAt'
     })
 
+    // ads.query = req.query
+
     return res.json(ads)
   }
 

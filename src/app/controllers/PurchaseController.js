@@ -1,20 +1,24 @@
 const Ad = require('../models/Ad')
-// const User = require('../models/User')
-const Mail = require('../services/Mail')
+const User = require('../models/User')
+const PurchaseMail = require('../jobs/PurchaseMail')
+const Queue = require('../services/Queue')
 
 class PurchaseController {
   async store (req, res) {
     const { ad, content } = req.body
 
     const purchaseAd = await Ad.findById(ad).populate('author')
-    // const user = await User.findById(req.userId)
+    const user = await User.findById(req.userId)
 
-    await Mail.sendMail({
-      from: '"Luiz Tonza" <meu@email.com>',
-      to: purchaseAd.author.email,
-      subject: `Solicitação de compra: ${purchaseAd.title}`,
-      html: `<p>Teste: ${content}</p>`
-    })
+    Queue.create(PurchaseMail.key, {
+      ad: purchaseAd,
+      user,
+      content
+    }).save()
+
+    console.log(
+      `${new Date()} Mensagem enfileirada para ${purchaseAd.author.email}`
+    )
 
     return res.send()
   }
